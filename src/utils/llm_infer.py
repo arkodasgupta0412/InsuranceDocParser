@@ -85,7 +85,7 @@ def generate_answers(questions: List[str], vectordb, num_workers=1):
             # Extract keywords
             keywords = extract_keywords(question)
             focused_query = ", ".join(keywords) if keywords else question
-            print(focused_query)
+            # print(focused_query)
 
             # Similarity search
             focused_docs = vectordb.similarity_search(focused_query, k=10)
