@@ -13,12 +13,15 @@ EXCELLENT AND DETAILED-TO-THE-POINT ANSWERS regarding any sort of query on the i
 ***TREAT THE INPUT POLICY DOCUMENT AS YOUR BIBLE, HOLY BOOK. YOU CAN GET ALL THE APT ANSWERS FROM THERE ITSELF.***
 
 *** WRITE IN SIMPLE ENGLISH SENTENCES (NOT COMPLEX OR COMPOUND SENTENCES) IN A PROFESSIONAL TONE***
+
+You know you have extracted keywords for getting local context and you have an overall global context. The response
+answer should include lines from the input document that speak about the keywords to highlight the local context.
          
 
 POINTS TO REMEMBER
 - Answer the following insurance-related question professionally and clearly. Respond using a PROFESSIONAL tone.
 - Answer in a single line in a SHORT AND CONCISE FORM taken from RELEVANT CLAUSES. However do not mention these clauses in the answer.
-- Answer in 3-4 sentences.
+- Answer in 3 to 4 sentences. Word count 80-90 words.
 - The first sentence should contain TO-THE-POINT ANSWER to the exact question being asked. (Refer to Example 2)
 - The next sentences (if required) should be used to provide the JUSTIFICATION for the first sentence. (Refer to Example 2)
 - Do not write second sentence if it does a redundant elaboration rather than providing a genuine justification that supports the first sentence.
@@ -54,8 +57,12 @@ def extract_keywords(question: str) -> List[str]:
 
     keyword_prompt = f"""
     Extract not more than 2-3 important keywords from the question below. The important keywords are basically
-    the high-value tokens in the question that hits the main asking of the question. They mostly start with capital letters.
-    Remember keywords are single/groups of words from the question itself, not from any other source.
+    the high-value tokens in the question that hits the main asking of the question. They are mostly terms that 
+    are specific to insurance policy documents. In other words, they are mostly used in insurance policy docs.
+    Keyword can be one word/group of words.
+
+    Example: What is the waiting period of cataract surgery ?
+    Important keywords: ['waiting-period', 'cataract']
 
     Question: {question}
     """
@@ -83,16 +90,16 @@ def generate_answers(questions: List[str], vectordb, num_workers=1):
             model = genai.GenerativeModel(MODEL_NAME, generation_config={"temperature": 0.2})
 
             # Extract keywords
-            # keywords = extract_keywords(question)
-            # focused_query = ", ".join(keywords) if keywords else question
+            keywords = extract_keywords(question)
+            focused_query = ", ".join(keywords) if keywords else question
 
-            # print(focused_query)
+            print(focused_query)
 
             # Similarity search
-            # focused_docs = vectordb.similarity_search(focused_query, k=3)
-            global_docs = vectordb.similarity_search(question, k=6)
-            # combined_docs = list({doc.page_content: doc for doc in focused_docs + global_docs}.values())
-            context = "\n\n".join([doc.page_content for doc in global_docs])
+            focused_docs = vectordb.similarity_search(focused_query, k=10)
+            global_docs = vectordb.similarity_search(question, k=5)
+            combined_docs = list({doc.page_content: doc for doc in focused_docs + global_docs}.values())
+            context = "\n\n".join([doc.page_content for doc in combined_docs])
 
             # Prompt generation
             prompt = f"{LLM_PROMPT}\n context = {context}\n query = {question}"
