@@ -24,7 +24,6 @@ extract-msg==0.54.1
 fastapi==0.116.1
 filetype==1.2.0
 frozenlist==1.7.0
-google-ai-generativelanguage==0.6.18
 google-api-core==2.25.1
 google-auth==2.40.3
 google-genai==1.27.0
