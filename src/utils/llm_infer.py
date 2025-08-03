@@ -79,7 +79,7 @@ Example:
                      the exact location from where the information is taken.
 2. Amount: 5000
 3. Justification: ...
-Combine the above four bullet points into 2-3 human mimicked sentences (it should feel that a human is replying).
+Combine the above four bullet points into 3-4 human mimicked sentences (it should feel that a human is replying).
 Word limit: 50-60 words (but be as descriptive as possible within the word limit)
 
 The above points can be combined as follows:
