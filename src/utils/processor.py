@@ -1,38 +1,30 @@
 from fastapi import HTTPException
 import schema
-import requests
-import utils.extractor as extractor
+import utils.loader as loader
+
 
 def process_query(query: schema.Query):
+    """ Processes a query by loading a document from a URL """
+
     try:
-        response = requests.get(query.documents)
-        response.raise_for_status()
+        documents = loader.load_document_from_url(query.documents)
         questions = query.questions
 
-        content_type = response.headers.get('content-type', '')
-        url_lower = query.documents.lower()
+        #print(len(documents))
+        #print(documents[21].page_content)
+        #print(documents[21].metadata)
 
-        # Choose extraction method
-        if 'pdf' in url_lower or 'application/pdf' in content_type:
-            doc = extractor.load_pdf_from_bytes(response.content)
+        if not documents:
+            raise HTTPException(status_code=400, detail="Failed to load or process the document from the provided URL. The link may be invalid or the file type unsupported.")
 
-        elif 'docx' in url_lower or 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' in content_type:
-            doc = extractor.load_docx_from_bytes(response.content)
+        return documents, questions
 
-        elif 'eml' in url_lower or 'message/rfc822' in content_type:
-            doc = extractor.load_email_from_eml_bytes(response.content)
-
-        elif 'msg' in url_lower or 'application/vnd.ms-outlook' in content_type:
-            doc = extractor.load_email_from_msg_bytes(response.content)
-
-        else:
-            doc = [extractor.Document(page_content=response.content.decode("utf-8", errors="ignore"), metadata={"source": "text"})]
-
-        return doc, questions
-    
-
-    except requests.RequestException as e:
-        raise HTTPException(status_code=400, detail=f"Failed to download document: {str(e)}")
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error processing document: {str(e)}")
+        if isinstance(e, HTTPException):
+            raise e
+        
+        print(f"An unexpected error occurred in process_query: {e}")
+        
+
+        raise HTTPException(status_code=500, detail=f"An unexpected internal error occurred.")

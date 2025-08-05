@@ -11,6 +11,7 @@ build==1.3.0
 cachetools==5.5.2
 certifi==2025.7.14
 cffi==1.17.1
+chardet==5.2.0
 charset-normalizer==3.4.2
 chromadb==1.0.15
 click==8.2.2
@@ -87,7 +88,9 @@ opentelemetry-semantic-conventions==0.57b0
 orjson==3.11.1
 overrides==7.7.0
 packaging==24.2
+pandas==2.3.1
 pcodedmp==1.2.6
+pdfminer==20191125
 posthog==5.4.0
 propcache==0.3.2
 proto-plus==1.26.1
@@ -101,7 +104,7 @@ pydantic-settings==2.10.1
 pydantic_core==2.33.2
 Pygments==2.19.2
 pyparsing==3.2.3
-PyPDF2==3.0.1
+PyPDF==5.9.0
 PyPika==0.48.9
 pyproject_hooks==1.2.0
 pyreadline3==3.5.4

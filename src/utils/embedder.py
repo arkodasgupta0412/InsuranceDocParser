@@ -27,6 +27,4 @@ def get_vectorstore(chunks: List[Document]) -> Chroma:
         collection_name="hackrx"
     )
 
-    vectordb.persist()
-
     return vectordb
