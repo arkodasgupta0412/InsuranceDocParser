@@ -10,13 +10,13 @@ It uses a Retrieval-Augmented Generation (RAG) pipeline to read, index, and unde
 - **Backend API** – Deployed and accessible as an endpoint (no frontend yet).
 
 ## Tech Stack
-- **Backend**: Python (FastAPI / Flask)
-- **AI**: LLM (OpenAI / similar) + Vector Database
-- **Deployment**: (e.g., Render / Railway / AWS)
+- **Backend**: Python, FastAPI, langchain
+- **AI**: LLM (Gemini-2.5-Flash) + Vector Database (Chroma)
+- **Deployment**: Render
 - **Testing**: (Postman) - validate HTTP get/post requests
 
 ## Usage
-1. Upload your insurance policy document to the backend endpoint.
+1. Upload your insurance policy document to the backend endpoint. (using a link)
 2. Ask natural language questions about your policy.
 3. Receive accurate, human-like responses grounded in the document.
 
