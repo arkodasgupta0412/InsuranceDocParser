@@ -1,7 +1,7 @@
 # PolicyPal
 
 **PolicyPal** is an AI-powered insurance document parser and query assistant.  
-It uses a Retrieval-Augmented Generation (RAG) pipeline to read, index, and understand an insurance policy document, enabling human-like responses to user queries about coverage, terms, and conditions.
+It uses a Retrieval-Augmented Generation (RAG) pipeline to read, index and understand an insurance policy document, enabling human-like responses to user queries about coverage, terms, and conditions.
 
 ## Features
 - **Document Parsing** – Extracts structured and unstructured information from insurance policy PDFs.
