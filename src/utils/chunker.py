@@ -1,6 +1,4 @@
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.schema import Document
-from typing import List
 
 def chunk_doc_content(doc_obj, chunk_size=500, chunk_overlap=100):
     """ Chunks document content using a generalized, structure-aware recursive splitter. """
